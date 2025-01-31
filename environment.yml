@@ -1,0 +1,35 @@
+name: nsidc-datasets
+channels:
+ - conda-forge
+ - default
+dependencies:
+ - python ~=3.12
+
+ ###################################################
+ # Imported dependencies and extensions            #
+ ###################################################
+
+ # Jupyterlab for notebooks
+ - jupyterlab
+
+ # Data Access
+ - earthaccess
+
+ # Plotting
+ - matplotlib
+ - cartopy
+ - hvplot
+ - ipympl
+
+ # xarray
+ - xarray
+ - netCDF4
+ - h5netcdf
+ - h5py
+ - dask
+ - bottleneck
+ - rioxarray
+
+
+
+
