@@ -1,4 +1,6 @@
 """Code to preprocess NSIDC passive microwave datasets"""
+from typing import Union, List, Dict
+
 import xarray as xr
 import numpy as np
 
@@ -127,7 +129,7 @@ def create_sensor(da):
     return sensor_id
 
     
-def preprocess_nsidc0051(ds: xr.Dataset):
+def nsidc0051(ds: xr.Dataset):
     """Preprocess NSIDC-0051 for building larger dataset
 
     Arguments
@@ -162,9 +164,9 @@ def preprocess_nsidc0051(ds: xr.Dataset):
     return ds
 
 
-def preprocess_nsidc_cdr_sic(
-        ds: xr.DataSet,
-        keep_vars: List[str]=["cdr_seaice_conc"],
+def nsidc_seaice_cdr(
+        ds: xr.Dataset,
+        keep_vars: List[str]=None,
         rename: Dict={"cdr_seaice_conc": "sic"},
         ) -> xr.Dataset:
     """Preprocessor for NOAA/NSIDC CDR of Passive Microwave
@@ -191,7 +193,8 @@ def preprocess_nsidc_cdr_sic(
        retained.  By default this is just cdr_seaice_conc
     """
 
-    data_vars = ds.data_vars
+    data_vars = list(ds.data_vars.keys())
+    
     icecon_var = "cdr_seaice_conc"
     
     # Rename dimensions to fit CF-Conventions best practices
@@ -199,9 +202,9 @@ def preprocess_nsidc_cdr_sic(
     ds = ds.swap_dims({"tdim": "time"})
 
     ds["mask"] = extract_mask(ds[icecon_var])
-    ds["sic"] = update_sic(ds[icecon_var])
+    ds["sic"] = update_nsidc0051_sic(ds[icecon_var])
 
     # Drop data variables unless listed in data_vars
-    ds.drop_var(data_vars)
+    ds = ds.drop_vars(data_vars)
 
     return ds
