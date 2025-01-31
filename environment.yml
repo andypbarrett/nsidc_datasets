@@ -30,6 +30,11 @@ dependencies:
  - bottleneck
  - rioxarray
 
+ - pytest
+
+ pip:
+   - /home/apbarret/src/nsidc_projections
+
 
 
 
