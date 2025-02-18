@@ -83,7 +83,7 @@ def extract_mask(da: xr.Dataset):
     return mask.squeeze()
 
 
-def update_nsidc0051_sic(sic: xr.DataArray, new_name: str="sic") -> xr.DataArray:
+def update_sic(sic: xr.DataArray, new_name: str="sic") -> xr.DataArray:
     """Extract and recodes sic field
 
     Arguments
@@ -129,7 +129,7 @@ def create_sensor(da):
     return sensor_id
 
     
-def nsidc0051(ds: xr.Dataset):
+def preprocess(ds: xr.Dataset):
     """Preprocess NSIDC-0051 for building larger dataset
 
     Arguments
