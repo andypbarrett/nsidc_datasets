@@ -1,3 +1,6 @@
+from nsidc_datasets.preprocessors.nsidc_0051 import extract_mask, update_sic
+
+
 def preprocess(
         ds: xr.Dataset,
         keep_vars: List[str]=None,
@@ -20,9 +23,11 @@ def preprocess(
     -------
     An Analysis Ready xarray.Dataset with sea ice concentration and mask variables
 
-    1. Rename time, x and y dimensions to conform to CF-Conventions
-    2. Extract mask flags to separate DataArray
-    3. Remove mask flag values from SIC variable
+    The following preprocessing operations are performed on each file:
+
+    1. time, x and y dimensions are renamed to conform to CF-Conventions
+    2. mask flags in the sea ice concentration variable are extracted to separate mask DataArray
+    3. mask flag values from SIC variable
     4. Drop unrequired data variables: only data variables listed in data_vars are
        retained.  By default this is just cdr_seaice_conc
     """
