@@ -1,3 +1,9 @@
+"""Preprocess code for NOAA/NSIDC CDR of Passive Microwave Sea Ice Concentration
+G02202"""
+from typing import List, Dict
+
+import xarray as xr
+
 from nsidc_datasets.preprocessors.nsidc_0051 import extract_mask, update_sic
 
 
